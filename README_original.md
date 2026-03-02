@@ -168,7 +168,7 @@ There are two ways to perform inference:
 Run the Gradio app for inference:
 
 ```bash
-uv run python gradio_app.py
+python gradio_app.py
 ```
 
 ### 2. Command Line Interface
@@ -176,7 +176,7 @@ uv run python gradio_app.py
 Run the script for inference:
 
 ```bash
-uv run ./inference.sh
+./inference.sh
 ```
 
 You can try adjusting the following inference parameters to achieve better results:
@@ -199,7 +199,7 @@ The complete data processing pipeline includes the following steps:
 Run the script to execute the data processing pipeline:
 
 ```bash
-uv run ./data_processing_pipeline.sh
+./data_processing_pipeline.sh
 ```
 
 You should change the parameter `input_dir` in the script to specify the data directory to be processed. The processed videos will be saved in the `high_visual_quality` directory. Each step will generate a new directory to prevent the need to redo the entire pipeline in case the process is interrupted by an unexpected error.
@@ -209,13 +209,13 @@ You should change the parameter `input_dir` in the script to specify the data di
 Before training, you should process the data as described above. We released a pretrained SyncNet with 94% accuracy on both VoxCeleb2 and HDTF datasets for the supervision of U-Net training. You can execute the following command to download this SyncNet checkpoint:
 
 ```bash
-uv run huggingface-cli download ByteDance/LatentSync-1.6 stable_syncnet.pt --local-dir checkpoints
+huggingface-cli download ByteDance/LatentSync-1.6 stable_syncnet.pt --local-dir checkpoints
 ```
 
 If all the preparations are complete, you can train the U-Net with the following script:
 
 ```bash
-uv run ./train_unet.sh
+./train_unet.sh
 ```
 
 We prepared several UNet configuration files in the ``configs/unet`` directory, each corresponding to a specific training setup:
@@ -229,7 +229,7 @@ We prepared several UNet configuration files in the ``configs/unet`` directory, 
 Also remember to change the parameters in U-Net config file to specify the data directory, checkpoint save path, and other training hyperparameters. For convenience, we prepared a script for writing a data files list. Run the following command:
 
 ```bash
-uv run python -m tools.write_fileslist
+python -m tools.write_fileslist
 ```
 
 ## 🏋️‍♂️ Training SyncNet
@@ -237,7 +237,7 @@ uv run python -m tools.write_fileslist
 In case you want to train SyncNet on your own datasets, you can run the following script. The data processing pipeline for SyncNet is the same as U-Net. 
 
 ```bash
-uv run ./train_syncnet.sh
+./train_syncnet.sh
 ```
 
 After `validations_steps` training, the loss charts will be saved in `train_output_dir`. They contain both the training and validation loss. If you want to customize the architecture of SyncNet for different image resolutions and input frame lengths, please follow the [guide](docs/syncnet_arch.md).
@@ -247,13 +247,13 @@ After `validations_steps` training, the loss charts will be saved in `train_outp
 You can evaluate the [sync confidence score](https://www.robots.ox.ac.uk/~vgg/publications/2016/Chung16a/chung16a.pdf) of a generated video by running the following script:
 
 ```bash
-uv run ./eval/eval_sync_conf.sh
+./eval/eval_sync_conf.sh
 ```
 
 You can evaluate the accuracy of SyncNet on a dataset by running the following script:
 
 ```bash
-uv run ./eval/eval_syncnet_acc.sh
+./eval/eval_syncnet_acc.sh
 ```
 
 Note that our released SyncNet is trained on data processed through our data processing pipeline, which includes special operations such as affine transformation and audio-visual adjustment. Therefore, before evaluation, the test data must first be processed using the provided pipeline.
