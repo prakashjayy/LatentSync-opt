@@ -13,7 +13,7 @@ dependencies = [
     "einops==0.7.0",
     "omegaconf==2.3.0",
     "opencv-python==4.9.0.80",
-    "mediapipe==0.10.11",
+    "mediapipe>=0.10.20",
     "python_speech_features==0.6",
     "librosa==0.10.1",
     "scenedetect==0.6.1",
@@ -27,6 +27,8 @@ dependencies = [
     "numpy==1.26.4",
     "kornia==0.8.0",
     "DeepCache==0.1.1",
+    "decord>=0.6.0",
+    "insightface>=0.7.3",
 ]
 
 [tool.uv.sources]
